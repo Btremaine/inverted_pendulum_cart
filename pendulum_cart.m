@@ -1,5 +1,5 @@
 % pendulum_cart.m
-% inverted pendulum on cart
+% inverted pendulum on cart with NO integral control
 % design LQR at linearized set point
 % then run in Simulink
 
@@ -9,7 +9,15 @@ m = 1.5;
 L= 1.0; 
 kv= 0.02;
 b=  0.02;
-g= 9.81;
+
+% set cart true for Gantry cart simulation and false for inverted pendulum
+cart = false;
+if cart
+  g= -9.81;
+else
+  g=  9.81;
+end
+
 
 
 
@@ -46,8 +54,9 @@ Cm = [1 0 0 0 ;
 OB= obsv(A,Cm);
 
 % let lam vary 0.05 to 0.95
-lam = 0.50;
-Q= lam*diag([2 0.5 4 2]);
+lam = 0.90;
+% Q= lam*diag([2 0.5 4 2]);  % inverted pend
+Q= lam*diag([2 0.5 10 10]);  % cart
 R= (1-lam);
 [K, S, CLP] = lqr(SYS,Q,R);
 
@@ -58,6 +67,4 @@ Dd= sys.D;
 
 figure(1); dstep(Ad-Bd*K,Bd,Cd,Dd);
 figure(2); step(A-B*K,B,C,D);
-
-
 
