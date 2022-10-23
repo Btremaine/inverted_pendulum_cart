@@ -15,6 +15,8 @@
 * simulation using the non-linear plant model without integral control.
 * Inv_pendulum_cart_plant is only the non-linear plant model for reference.
 
+* The Colab project was used to solve the system equations in Python Sympy. 
+
 ### What is this repository for? ###
 
 * Matlab script examples for Inverted Pendulum on Cart using LQR
